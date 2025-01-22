@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="contact_style.css" />
+  </head>
+  <body>
+    <!-- MAP  -->
+    <div class="map">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3381.389757630229!2d36.08261977542879!3d32.058705373972096!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151b65cd4d8f17e1%3A0x30e86b8a97e4ac7d!2sOrange%20Digital%20Village%20Zarqa!5e0!3m2!1sen!2sjo!4v1736972928236!5m2!1sen!2sjo"
+        width="600"
+        height="450"
+        style="border: 0"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+    <!-- MAP  -->
+    <!-- CONTACT  -->
+    <div class="container">
+      <div class="contact-info">
+        <p class="info-title">Information</p>
+        <h1>Contact Us</h1>
+        <p>
+          "As you might expect from a shop specializing in unique and
+          personalized gifts, we pay great attention to detail, ensuring every
+          item is crafted with care and quality."
+        </p>
+        <h2>Jordan</h2>
+        <p>Amman, Al Jandaweel, 2nd Circle<br />+962 6 123-4567</p>
+      </div>
+
+      <div class="form-container">
+        <form>
+          <div class="input-container">
+            <input type="text" placeholder="Name" id="name" />
+            <input type="email" placeholder="Email" id="email" />
+          </div>
+          <textarea placeholder="Message" id="message" rows="5"></textarea>
+          <button id="submit">SEND MESSAGE</button>
+        </form>
+      </div>
+    </div>
+    <!-- CONTACT  -->
+     <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+  import{getFirestore,collection, addDoc}from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js"    
+
+ 
+  const firebaseConfig = {
+    apiKey: "AIzaSyBSKcBcu0vyrYyTGT5NWcx3y5cwPK4gCeE",
+    authDomain: "contact-83ff2.firebaseapp.com",
+    projectId: "contact-83ff2",
+    storageBucket: "contact-83ff2.firebasestorage.app",
+    messagingSenderId: "455319402601",
+    appId: "1:455319402601:web:b0432948c4365c55c14af8",
+    measurementId: "G-5HWWF65R6X"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const dataBase = getFirestore(app);
+  console.log(dataBase);
+
+  async function sendData(e){
+    e.preventDefault()
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const message = document.getElementById("message").value;
+    try {
+  const docRef = await addDoc(collection(dataBase, "users"), {
+    UserName: name,
+    yourEmail: email,
+    msg : message
+  });
+  alert("ok")
+} catch (e) {
+  console.error("Error adding document: ", e);
+}
+  }
+  const btn = document.getElementById("submit");
+  btn.addEventListener("click", sendData);
+</script>
+  </body>
+</html>
